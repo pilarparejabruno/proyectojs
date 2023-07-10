@@ -1,9 +1,11 @@
-const listaProductosCuidadoFacial = [];
+/* const listaProductosCuidadoFacial = [];
 const listaProductosCuidadoCapilar = [];
 const listaProductosCuidadoLabial = [];
-const listaProductosAccesorios = [];
+const listaProductosAccesorios = []; */
 
-listaProductosCuidadoFacial.push(
+const stock = [];
+
+stock.push(
   new Producto(
     "Crema Cielo",
     "Cuidado facial",
@@ -13,7 +15,7 @@ listaProductosCuidadoFacial.push(
   )
 );
 
-listaProductosCuidadoFacial.push(
+stock.push(
   new Producto(
     "Espuma Nube",
     "Cuidado facial",
@@ -23,7 +25,7 @@ listaProductosCuidadoFacial.push(
   )
 );
 
-listaProductosCuidadoFacial.push(
+stock.push(
   new Producto(
     "Scrub facial de almendras",
     "Cuidado facial",
@@ -33,7 +35,7 @@ listaProductosCuidadoFacial.push(
   )
 );
 
-listaProductosCuidadoFacial.push(
+stock.push(
   new Producto(
     "Mascarilla Neptuno",
     "Cuidado facial",
@@ -42,10 +44,10 @@ listaProductosCuidadoFacial.push(
     2520
   )
 );
-listaProductosCuidadoFacial.push(
+stock.push(
   new Producto("Sheetmask", "Cuidado facial", "Mascara facial", "Kamikaze", 150)
 );
-listaProductosCuidadoCapilar.push(
+stock.push(
   new Producto(
     "Shampoo solido",
     "Cuidado capilar",
@@ -54,7 +56,7 @@ listaProductosCuidadoCapilar.push(
     2160
   )
 );
-listaProductosCuidadoCapilar.push(
+stock.push(
   new Producto(
     "Acondicionador solido",
     "Cuidado capilar",
@@ -63,7 +65,7 @@ listaProductosCuidadoCapilar.push(
     2160
   )
 );
-listaProductosCuidadoLabial.push(
+stock.push(
   new Producto(
     "balsamo labial",
     "Cuidado labial",
@@ -72,7 +74,7 @@ listaProductosCuidadoLabial.push(
     2270
   )
 );
-listaProductosAccesorios.push(
+stock.push(
   new Producto(
     "Pad XL",
     "Accesorio",
@@ -81,7 +83,7 @@ listaProductosAccesorios.push(
     900
   )
 );
-listaProductosAccesorios.push(
+stock.push(
   new Producto(
     "Gua Sha",
     "Accesorio",
@@ -91,23 +93,13 @@ listaProductosAccesorios.push(
   )
 );
 
-// LISTA DE TODOS LOS PRODUCTOS
-
-const Productos = [];
-Productos.push(listaProductosCuidadoFacial);
-Productos.push(listaProductosCuidadoCapilar);
-Productos.push(listaProductosCuidadoLabial);
-Productos.push(listaProductosAccesorios);
-
-console.log(Productos);
-
 function dibujarProductos() {
   const row = document.createElement("div");
   row.classList.add("row");
   row.innerHTML = ``;
   let counter = 1;
-  console.log(Productos);
-  Productos.forEach((producto) => {
+  console.log(stock);
+  stock.forEach((producto) => {
     if (counter <= 3) {
       row.innerHTML += `
       <div class="card-group">
@@ -138,7 +130,7 @@ function dibujarProductos() {
       counter++;
 
       row.querySelector(`#item-${index}`).addEventListener("click", () => {
-        carritoCompras.push(Productos[index]);
+        carrito.push(stock[index]);
       });
     } else {
       listaItems.appendChild(row);
@@ -150,3 +142,7 @@ function dibujarProductos() {
   });
   listaItems.appendChild(row);
 }
+
+dibujarProductos();
+
+function DibujarCarrito() {}
