@@ -11,7 +11,8 @@ stock.push(
     "Cuidado facial",
     "hidratante facial",
     "Kamikaze",
-    5040
+    5040,
+    1
   )
 );
 
@@ -21,7 +22,8 @@ stock.push(
     "Cuidado facial",
     "espuma de limpieza facial",
     "Kamikaze",
-    2850
+    2850,
+    2
   )
 );
 
@@ -31,7 +33,8 @@ stock.push(
     "Cuidado facial",
     "exfoliante facial",
     "Kamikaze",
-    3180
+    3180,
+    3
   )
 );
 
@@ -41,11 +44,19 @@ stock.push(
     "Cuidado facial",
     "Mascarilla de arcilla",
     "Kamikaze",
-    2520
+    2520,
+    4
   )
 );
 stock.push(
-  new Producto("Sheetmask", "Cuidado facial", "Mascara facial", "Kamikaze", 150)
+  new Producto(
+    "Sheetmask",
+    "Cuidado facial",
+    "Mascara facial",
+    "Kamikaze",
+    150,
+    5
+  )
 );
 stock.push(
   new Producto(
@@ -53,7 +64,8 @@ stock.push(
     "Cuidado capilar",
     "Shampoo fortalecedor y restaurador",
     "Kamikaze",
-    2160
+    2160,
+    6
   )
 );
 stock.push(
@@ -62,7 +74,8 @@ stock.push(
     "Cuidado capilar",
     "HIdratacion intensa",
     "Kamikaze",
-    2160
+    2160,
+    7
   )
 );
 stock.push(
@@ -71,7 +84,8 @@ stock.push(
     "Cuidado labial",
     "balsamo labial con color y aroma",
     "Kamikaze",
-    2270
+    2270,
+    8
   )
 );
 stock.push(
@@ -80,7 +94,8 @@ stock.push(
     "Accesorio",
     "Pad facial reutilizable",
     "Kamikaze",
-    900
+    900,
+    9
   )
 );
 stock.push(
@@ -89,7 +104,8 @@ stock.push(
     "Accesorio",
     "Piedra para masaje facial",
     "Kamikaze",
-    3000
+    3000,
+    10
   )
 );
 
