@@ -108,7 +108,7 @@ stock.push(
     10
   )
 );
-let carrito = [];
+const carrito = [];
 listaItems = document.getElementById("listaItems");
 
 function dibujarProductos() {
@@ -133,7 +133,7 @@ function dibujarProductos() {
               <strong>$2.462,50</strong>
             </p>
             <button
-              id="#btnAgregarCarrito-${producto.id}"
+              id="btnAgregarCarrito-${producto.id}"
               type="button"
               class="btn btn-outline-dark"
             >
@@ -146,17 +146,7 @@ function dibujarProductos() {
             `;
   });
   listaItems.appendChild(row);
-  btnAgregarCarrito = document.querySelector("#btnAgregarCarrito");
-  btnAgregarCarrito.addEventListener("click", () => {
-    carrito.push({
-      id: producto.id,
-      nombre: producto.nombre,
-      precio: producto.precio,
-    });
-  });
 }
-
-// CARRITO
 
 modalContainer = document.getElementById("modalContainer");
 
@@ -165,8 +155,10 @@ function verCarrito() {
   verCarrito.addEventListener("click", () => {});
 }
 
-/* function allEventsListener() {
-  btnAgregarCarrito = document.querySelector("#btnAgregarCarrito");
+function clickAgregarCarrito() {
+  let btnAgregarCarrito = document.getElementById(
+    "btnAgregarCarrito-${producto.id}"
+  );
   btnAgregarCarrito.allEventsListener("click", () => {
     carrito.push({
       id: producto.id,
@@ -174,8 +166,7 @@ function verCarrito() {
       precio: producto.precio,
     });
   });
-} */
+}
 
 dibujarProductos();
-/* allEventsListener(); */
-console.log(carrito);
+clickAgregarCarrito();
