@@ -108,57 +108,74 @@ stock.push(
     10
   )
 );
+let carrito = [];
+listaItems = document.getElementById("listaItems");
 
 function dibujarProductos() {
   const row = document.createElement("div");
   row.classList.add("row");
   row.innerHTML = ``;
-  let counter = 1;
-  console.log(stock);
   stock.forEach((producto) => {
-    if (counter <= 3) {
-      row.innerHTML += `
-      <div class="card-group">
-      <div class="card card border-dark">
-        <img
-          src="../img/cuidadofacial.jpg"
-          class="card-img-top"
-          alt="..."
-        />
-        <div class="card-body text-center">
-          <h5 class="card-title">${producto.nombre}</h5>
-          <p class="card-text card-text">$${producto.precio}</p>
-          <p>
-            <strong>4</strong> cuotas sin interés de
-            <strong>$2.462,50</strong>
-          </p>
-          <button
-            id="item"
-            data-index="${index}"
-            type="button"
-            class="btn btn-outline-dark"
-          >
-            AGREGAR AL CARRITO
-          </button>
+    row.innerHTML += `
+        <div class="col-12 col-md-6 col-lg-4">
+        <div class="card-group">
+        <div class="card card border-dark">
+          <img
+            src="../img/cuidadofacial.jpg"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body text-center">
+            <h5 class="card-title">${producto.nombre}</h5>
+            <p class="card-text card-text">$${producto.precio}</p>
+            <p>
+              <strong>4</strong> cuotas sin interés de
+              <strong>$2.462,50</strong>
+            </p>
+            <button
+              id="#btnAgregarCarrito-${producto.id}"
+              type="button"
+              class="btn btn-outline-dark"
+            >
+              AGREGAR AL CARRITO
+            </button>
+          </div>
         </div>
-      </div>
-        `;
-      counter++;
-
-      row.querySelector(`#item-${index}`).addEventListener("click", () => {
-        carrito.push(stock[index]);
-      });
-    } else {
-      listaItems.appendChild(row);
-      row = document.createElement("div");
-      row.classList.add("row");
-      row.innerHTML = ``;
-      counter = 1;
-    }
+        
+        </div>
+            `;
   });
   listaItems.appendChild(row);
+  btnAgregarCarrito = document.querySelector("#btnAgregarCarrito");
+  btnAgregarCarrito.addEventListener("click", () => {
+    carrito.push({
+      id: producto.id,
+      nombre: producto.nombre,
+      precio: producto.precio,
+    });
+  });
 }
 
-dibujarProductos();
+// CARRITO
 
-function DibujarCarrito() {}
+modalContainer = document.getElementById("modalContainer");
+
+function verCarrito() {
+  const verCarrito = document.querySelector("#verCarrito");
+  verCarrito.addEventListener("click", () => {});
+}
+
+/* function allEventsListener() {
+  btnAgregarCarrito = document.querySelector("#btnAgregarCarrito");
+  btnAgregarCarrito.allEventsListener("click", () => {
+    carrito.push({
+      id: producto.id,
+      nombre: producto.nombre,
+      precio: producto.precio,
+    });
+  });
+} */
+
+dibujarProductos();
+/* allEventsListener(); */
+console.log(carrito);
