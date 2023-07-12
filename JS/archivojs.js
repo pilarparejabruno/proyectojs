@@ -243,14 +243,17 @@ function mostrarCarrito() {
     tablaCarrito.innerHTML =
       tablaCarrito.innerHTML +
       `
-    <thead>
-    <tr>
-    <th scope="col">Carrito de compras</th>
-    </tr>
-    </thead>
   <tbody>
     <tr>
-    <th scope="row">${producto.imagen}</th>
+    <th scope="row">   
+    <img
+    src="../img/fotosproductos/${producto.imagen}"
+    class=""
+    alt="${producto.nombre}"
+    width="100"
+    height="100"
+  />
+  </th>
     </tr>
     <tr>
     <th scope="row">${producto.nombre}</th>
@@ -261,6 +264,13 @@ function mostrarCarrito() {
   </tbody>
     `;
   });
+  tablaCarrito.innerHTML =
+    tablaCarrito.innerHTML +
+    `<thead>
+  <tr>
+    <th scope="col">Carrito de Compras</th>
+  </tr>
+</thead>`;
 }
 
 dibujarProductos();
