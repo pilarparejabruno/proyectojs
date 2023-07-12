@@ -4,6 +4,7 @@ const listaProductosCuidadoLabial = [];
 const listaProductosAccesorios = []; */
 
 const stock = [];
+const carrito = [];
 
 stock.push(
   new Producto(
@@ -12,7 +13,8 @@ stock.push(
     "hidratante facial",
     "Kamikaze",
     5040,
-    1
+    1,
+    "fotoproducto-cremacielo.jpg"
   )
 );
 
@@ -23,7 +25,8 @@ stock.push(
     "espuma de limpieza facial",
     "Kamikaze",
     2850,
-    2
+    2,
+    "fotoproducto-espumanube.jpg"
   )
 );
 
@@ -34,7 +37,8 @@ stock.push(
     "exfoliante facial",
     "Kamikaze",
     3180,
-    3
+    3,
+    "fotoproducto-scrubfacial.jpg"
   )
 );
 
@@ -45,7 +49,8 @@ stock.push(
     "Mascarilla de arcilla",
     "Kamikaze",
     2520,
-    4
+    4,
+    "fotoproducto-mascarillaneptuno.jpg"
   )
 );
 stock.push(
@@ -55,7 +60,8 @@ stock.push(
     "Mascara facial",
     "Kamikaze",
     150,
-    5
+    5,
+    "fotoproducto-mascarillaneptuno.jpg"
   )
 );
 stock.push(
@@ -65,7 +71,8 @@ stock.push(
     "Shampoo fortalecedor y restaurador",
     "Kamikaze",
     2160,
-    6
+    6,
+    "fotoproducto-shampoo.jpg"
   )
 );
 stock.push(
@@ -75,7 +82,8 @@ stock.push(
     "HIdratacion intensa",
     "Kamikaze",
     2160,
-    7
+    7,
+    "fotoproducto-acondicionador.jpg"
   )
 );
 stock.push(
@@ -85,7 +93,8 @@ stock.push(
     "balsamo labial con color y aroma",
     "Kamikaze",
     2270,
-    8
+    8,
+    "fotoproducto-balsamolabial.jpg"
   )
 );
 stock.push(
@@ -95,7 +104,8 @@ stock.push(
     "Pad facial reutilizable",
     "Kamikaze",
     900,
-    9
+    9,
+    "fotoproducto-padxl.jpg"
   )
 );
 stock.push(
@@ -105,10 +115,66 @@ stock.push(
     "Piedra para masaje facial",
     "Kamikaze",
     3000,
-    10
+    10,
+    "fotoproducto-guasha.jpg"
   )
 );
-const carrito = [];
+stock.push(
+  new Producto(
+    "Hidrolato de rosas",
+    "Cuidado facial",
+    "Tónico hidratante",
+    "Kamikaze",
+    3860,
+    11,
+    "fotoproducto-hidrolatoderosas.jpg"
+  )
+);
+stock.push(
+  new Producto(
+    "Aceite de jojoba",
+    "Cuidado facial",
+    "Pi",
+    "Kamikaze",
+    2800,
+    12,
+    "fotoproducto-aceitedejojoba.jpg"
+  )
+);
+stock.push(
+  new Producto(
+    "Rollon Magnolia",
+    "Cuidado facial",
+    "Contorno de ojos",
+    "Kamikaze",
+    5000,
+    13,
+    "fotoproducto-rollonmagnolia.jpg"
+  )
+);
+stock.push(
+  new Producto(
+    "Halo Lunar",
+    "Cuidado facial",
+    "Agua micelar",
+    "Kamikaze",
+    2160,
+    14,
+    "fotoproducto-aguamicelar.jpg"
+  )
+);
+
+localStorage.setItem("stock", JSON.stringify(stock));
+
+function traerItems() {
+  stock = JSON.parse(localStorage.getItem("stock")) || [];
+  carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+}
+
+function cargaDelDOM() {
+  document.addEventListener("DOMContentLoaded", traerItems);
+}
+
 listaItems = document.getElementById("listaItems");
 
 function dibujarProductos() {
@@ -121,9 +187,9 @@ function dibujarProductos() {
         <div class="card-group">
         <div class="card card border-dark">
           <img
-            src="../img/cuidadofacial.jpg"
-            class="card-img-top"
-            alt="..."
+            src="../img/fotosproductos/${producto.imagen}"
+            class="card-img-top img-fluid"
+            alt="${producto.nombre}"
           />
           <div class="card-body text-center">
             <h5 class="card-title">${producto.nombre}</h5>
@@ -134,6 +200,7 @@ function dibujarProductos() {
             </p>
             <button
               id="btnAgregarCarrito-${producto.id}"
+
               type="button"
               class="btn btn-outline-dark"
             >
@@ -148,25 +215,54 @@ function dibujarProductos() {
   listaItems.appendChild(row);
 }
 
-modalContainer = document.getElementById("modalContainer");
-
-function verCarrito() {
-  const verCarrito = document.querySelector("#verCarrito");
-  verCarrito.addEventListener("click", () => {});
+function clickAgregarCarrito() {
+  stock.forEach((producto) => {
+    let btnAgregarCarrito = document.getElementById(
+      `btnAgregarCarrito-${producto.id}`
+    );
+    btnAgregarCarrito.addEventListener("click", () => {
+      carrito.push({
+        imagen: producto.imagen,
+        nombre: producto.nombre,
+        precio: producto.precio,
+      });
+      console.log(carrito);
+    });
+  });
 }
 
-function clickAgregarCarrito() {
-  let btnAgregarCarrito = document.getElementById(
-    "btnAgregarCarrito-${producto.id}"
-  );
-  btnAgregarCarrito.allEventsListener("click", () => {
-    carrito.push({
-      id: producto.id,
-      nombre: producto.nombre,
-      precio: producto.precio,
-    });
+function abrirCarrito() {
+  const verCarrito = document.querySelector("#verCarrito");
+  verCarrito.addEventListener("click", mostrarCarrito);
+}
+
+function mostrarCarrito() {
+  let tablaCarrito = document.getElementById("tableCarrito");
+  tablaCarrito.innerHTML = "";
+  carrito.forEach((producto) => {
+    tablaCarrito.innerHTML =
+      tablaCarrito.innerHTML +
+      `
+    <thead>
+    <tr>
+    <th scope="col">Carrito de compras</th>
+    </tr>
+    </thead>
+  <tbody>
+    <tr>
+    <th scope="row">${producto.imagen}</th>
+    </tr>
+    <tr>
+    <th scope="row">${producto.nombre}</th>
+    </tr>
+    <tr>
+    <th scope="row">${producto.precio}</th>
+    </tr>
+  </tbody>
+    `;
   });
 }
 
 dibujarProductos();
 clickAgregarCarrito();
+abrirCarrito();
