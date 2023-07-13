@@ -5,6 +5,7 @@ const listaProductosAccesorios = []; */
 
 const stock = [];
 const carrito = [];
+const total = 0;
 
 stock.push(
   new Producto(
@@ -211,7 +212,8 @@ function mostrarCarrito() {
     tablaCarrito.innerHTML =
       tablaCarrito.innerHTML +
       `
-    <tbody>
+     
+    <tbody class="tbody" >
       <tr>
       <th scope="row">   
       <img
@@ -221,24 +223,36 @@ function mostrarCarrito() {
       width="100"
       height="100"
     />
-    </th>
+     </th>
       </tr>
-      <tr>
-      <th scope="row">${producto.nombre}</th>
+      <tr class="tr">
+      <th scope="row" class="paragraph">${producto.nombre} $ ${producto.precio} </th>
       </tr>
-      <tr>
-      <th scope="row">${producto.precio}</th>
+      <tr class="tr">
+      <th scope="row" class="paragraph">Cantidad: </th>
+      </tr>
+      <tr class="tr">
+      <th scope="row" class="paragraph"><button type="button" class="btn btn-outline-dark">+</button>
+     <button type="button" class="btn btn-outline-dark">-</button></th>
       </tr>
     </tbody>
       `;
   });
   tablaCarrito.innerHTML =
     tablaCarrito.innerHTML +
-    `<thead>
-    <tr>
-      <th scope="col">Carrito de Compras</th>
-    </tr>
-  </thead>`;
+    `
+   <thead class="thead">
+   <tr class="tr">
+     <th scope="col" class= "title">Carrito de Compras</th>
+   </tr>
+ </thead>
+ <tbody class="tbody" >
+ </tr>
+      <tr class="tr">
+      <th scope="row" class="paragraph-total">TOTAL: $ ${total}</th>
+      </tr>
+ </tbody>
+   `;
 }
 
 function clickAgregarCarrito() {
@@ -252,6 +266,8 @@ function clickAgregarCarrito() {
         nombre: producto.nombre,
         precio: producto.precio,
       });
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      total = carrito.reduce((acc, item) => acc + producto.precio, 0);
     });
     console.log(carrito);
   });
@@ -261,9 +277,8 @@ function abrirCarrito() {
   const verCarrito = document.querySelector("#verCarrito");
   verCarrito.addEventListener("click", mostrarCarrito);
 }
-
+/* 
 localStorage.setItem("stock", JSON.stringify(stock));
-localStorage.setItem("carrito", JSON.stringify(carrito));
 
 function traerItems() {
   stock = JSON.parse(localStorage.getItem("stock")) || [];
@@ -274,7 +289,7 @@ function cargaDelDOM() {
   document.addEventListener("DOMContentLoaded", traerItems);
 }
 
+cargaDelDOM(); */
 dibujarProductos();
 clickAgregarCarrito();
 abrirCarrito();
-/* traerItems(); */

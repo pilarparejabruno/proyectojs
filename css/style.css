@@ -224,4 +224,32 @@ footer .social-item .social-link .social-icon {
   color: #000000;
 }
 
+.carrito-table #tableCarrito {
+  position: absolute;
+  top: 20%;
+  left: 65%;
+  z-index: 2;
+}
+.carrito-table .thead .tr .title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 50px;
+  color: #000000;
+  font-size: 30px;
+}
+.carrito-table .tbody .tr .paragraph {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  font-size: 20px;
+  color: #000000;
+  font-weight: 400;
+}
+.carrito-table .tbody .tr .paragraph-total {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  font-size: 20px;
+  color: #000000;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=style.css.map */
