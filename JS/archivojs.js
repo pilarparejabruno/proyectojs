@@ -229,7 +229,7 @@ function mostrarCarrito() {
       <th scope="row" class="paragraph">${producto.nombre} $ ${producto.precio} </th>
       </tr>
       <tr class="tr">
-      <th scope="row" class="paragraph">Cantidad:${producto.cantidad} </th>
+      <th scope="row" class="paragraph">Cantidad: ${producto.cantidad} </th>
       </tr>
       <tr class="tr">
       <th scope="row" class="paragraph"><button type="button" class="btn btn-outline-dark" id="btn-incrementar">+</button>
@@ -253,21 +253,21 @@ function mostrarCarrito() {
       </tr>
  </tbody>
    `;
+
   modificarCantidad();
 }
 function modificarCantidad() {
-  let btnIncremento = document.querySelector("#btn-incrementar");
-  let btnDecremento = document.querySelector("#btn-btn-decrementar");
+  let btnIncremento = document.querySelector(`#btn-incrementar`);
+  let btnDecremento = document.querySelector(`#btn-decrementar`);
 
   btnIncremento.addEventListener("click", () => {
-    producto.cantidad += 1;
+    producto.cantidad++;
   });
 
   btnDecremento.addEventListener("click", () => {
-    producto.cantidad -= 1;
+    producto.cantidad--;
   });
 }
-
 function clickAgregarCarrito() {
   stock.forEach((producto) => {
     let btnAgregarCarrito = document.getElementById(
