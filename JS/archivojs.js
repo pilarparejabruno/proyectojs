@@ -5,7 +5,7 @@ const listaProductosAccesorios = []; */
 
 const stock = [];
 const carrito = [];
-const total = 0;
+let total = 0;
 
 stock.push(
   new Producto(
@@ -229,11 +229,11 @@ function mostrarCarrito() {
       <th scope="row" class="paragraph">${producto.nombre} $ ${producto.precio} </th>
       </tr>
       <tr class="tr">
-      <th scope="row" class="paragraph">Cantidad: </th>
+      <th scope="row" class="paragraph">Cantidad:${producto.cantidad} </th>
       </tr>
       <tr class="tr">
-      <th scope="row" class="paragraph"><button type="button" class="btn btn-outline-dark">+</button>
-     <button type="button" class="btn btn-outline-dark">-</button></th>
+      <th scope="row" class="paragraph"><button type="button" class="btn btn-outline-dark" id="btn-incrementar">+</button>
+     <button type="button" class="btn btn-outline-dark" id="btn-decrementar">-</button></th>
       </tr>
     </tbody>
       `;
@@ -253,6 +253,19 @@ function mostrarCarrito() {
       </tr>
  </tbody>
    `;
+  modificarCantidad();
+}
+function modificarCantidad() {
+  let btnIncremento = document.querySelector("#btn-incrementar");
+  let btnDecremento = document.querySelector("#btn-btn-decrementar");
+
+  btnIncremento.addEventListener("click", () => {
+    producto.cantidad += 1;
+  });
+
+  btnDecremento.addEventListener("click", () => {
+    producto.cantidad -= 1;
+  });
 }
 
 function clickAgregarCarrito() {
@@ -265,9 +278,10 @@ function clickAgregarCarrito() {
         imagen: producto.imagen,
         nombre: producto.nombre,
         precio: producto.precio,
+        cantidad: 1,
       });
       localStorage.setItem("carrito", JSON.stringify(carrito));
-      total = carrito.reduce((acc, item) => acc + producto.precio, 0);
+      total = carrito.reduce((acc, producto) => acc + producto.precio, 0);
     });
     console.log(carrito);
   });
