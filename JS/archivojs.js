@@ -237,6 +237,7 @@ function mostrarCarrito() {
       </tr>
     </tbody>
       `;
+    modificarCantidad(producto);
   });
   tablaCarrito.innerHTML =
     tablaCarrito.innerHTML +
@@ -253,19 +254,19 @@ function mostrarCarrito() {
       </tr>
  </tbody>
    `;
-
-  modificarCantidad();
 }
-function modificarCantidad() {
+function modificarCantidad(producto) {
   let btnIncremento = document.querySelector(`#btn-incrementar`);
   let btnDecremento = document.querySelector(`#btn-decrementar`);
 
   btnIncremento.addEventListener("click", () => {
-    producto.cantidad++;
+    carrito.cantidad++;
+    mostrarCarrito();
   });
 
   btnDecremento.addEventListener("click", () => {
-    producto.cantidad--;
+    carrito.cantidad--;
+    mostrarCarrito();
   });
 }
 function clickAgregarCarrito() {
@@ -291,19 +292,14 @@ function abrirCarrito() {
   const verCarrito = document.querySelector("#verCarrito");
   verCarrito.addEventListener("click", mostrarCarrito);
 }
-/* 
-localStorage.setItem("stock", JSON.stringify(stock));
-
-function traerItems() {
-  stock = JSON.parse(localStorage.getItem("stock")) || [];
-  carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-}
 
 function cargaDelDOM() {
-  document.addEventListener("DOMContentLoaded", traerItems);
+  document.addEventListener("DOMContentLoaded", () => {
+    carritoDelStorage = JSON.parse(localStorage.getItem("carrito")) || [];
+  });
 }
 
-cargaDelDOM(); */
+cargaDelDOM();
 dibujarProductos();
 clickAgregarCarrito();
 abrirCarrito();
