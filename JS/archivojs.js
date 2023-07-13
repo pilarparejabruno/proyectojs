@@ -232,8 +232,8 @@ function mostrarCarrito() {
       <th scope="row" class="paragraph">Cantidad: ${producto.cantidad} </th>
       </tr>
       <tr class="tr">
-      <th scope="row" class="paragraph"><button type="button" class="btn btn-outline-dark" id="btn-incrementar">+</button>
-     <button type="button" class="btn btn-outline-dark" id="btn-decrementar">-</button></th>
+      <th scope="row" class="paragraph"><button type="button" class="btn btn-outline-dark" id="btn-incrementar-${producto.id}">+</button>
+     <button type="button" class="btn btn-outline-dark" id="btn-decrementar-${producto.id}">-</button></th>
       </tr>
     </tbody>
       `;
@@ -255,21 +255,32 @@ function mostrarCarrito() {
  </tbody>
    `;
 }
-function modificarCantidad(producto) {
-  let btnIncremento = document.querySelector(`#btn-incrementar`);
-  let btnDecremento = document.querySelector(`#btn-decrementar`);
-
-  btnIncremento.addEventListener("click", () => {
-    carrito.cantidad++;
-    mostrarCarrito();
-  });
-
-  btnDecremento.addEventListener("click", () => {
-    carrito.cantidad--;
-    mostrarCarrito();
+function clickAgregarCarrito() {
+  stock.forEach((producto) => {
+    let btnAgregarCarrito = document.getElementById(
+      `btnAgregarCarrito-${producto.id}`
+    );
+    btnAgregarCarrito.addEventListener("click", () => {
+      let productoEnCarrito = carrito.find((p) => p.nombre === producto.nombre);
+      if (productoEnCarrito) {
+        productoEnCarrito.cantidad++;
+      } else {
+        carrito.push({
+          imagen: producto.imagen,
+          nombre: producto.nombre,
+          precio: producto.precio,
+          cantidad: 1,
+        });
+      }
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      total = carrito.reduce(
+        (acc, producto) => acc + producto.precio * producto.cantidad,
+        0
+      );
+    });
   });
 }
-function clickAgregarCarrito() {
+/* function clickAgregarCarrito() {
   stock.forEach((producto) => {
     let btnAgregarCarrito = document.getElementById(
       `btnAgregarCarrito-${producto.id}`
@@ -286,7 +297,7 @@ function clickAgregarCarrito() {
     });
     console.log(carrito);
   });
-}
+}  */
 
 function abrirCarrito() {
   const verCarrito = document.querySelector("#verCarrito");
