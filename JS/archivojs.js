@@ -164,17 +164,6 @@ stock.push(
   )
 );
 
-localStorage.setItem("stock", JSON.stringify(stock));
-
-function traerItems() {
-  stock = JSON.parse(localStorage.getItem("stock")) || [];
-  carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-}
-
-function cargaDelDOM() {
-  document.addEventListener("DOMContentLoaded", traerItems);
-}
-
 listaItems = document.getElementById("listaItems");
 
 function dibujarProductos() {
@@ -215,6 +204,43 @@ function dibujarProductos() {
   listaItems.appendChild(row);
 }
 
+function mostrarCarrito() {
+  let tablaCarrito = document.getElementById("tableCarrito");
+  tablaCarrito.innerHTML = "";
+  carrito.forEach((producto) => {
+    tablaCarrito.innerHTML =
+      tablaCarrito.innerHTML +
+      `
+    <tbody>
+      <tr>
+      <th scope="row">   
+      <img
+      src="../img/fotosproductos/${producto.imagen}"
+      class=""
+      alt="${producto.nombre}"
+      width="100"
+      height="100"
+    />
+    </th>
+      </tr>
+      <tr>
+      <th scope="row">${producto.nombre}</th>
+      </tr>
+      <tr>
+      <th scope="row">${producto.precio}</th>
+      </tr>
+    </tbody>
+      `;
+  });
+  tablaCarrito.innerHTML =
+    tablaCarrito.innerHTML +
+    `<thead>
+    <tr>
+      <th scope="col">Carrito de Compras</th>
+    </tr>
+  </thead>`;
+}
+
 function clickAgregarCarrito() {
   stock.forEach((producto) => {
     let btnAgregarCarrito = document.getElementById(
@@ -226,8 +252,8 @@ function clickAgregarCarrito() {
         nombre: producto.nombre,
         precio: producto.precio,
       });
-      console.log(carrito);
     });
+    console.log(carrito);
   });
 }
 
@@ -236,43 +262,19 @@ function abrirCarrito() {
   verCarrito.addEventListener("click", mostrarCarrito);
 }
 
-function mostrarCarrito() {
-  let tablaCarrito = document.getElementById("tableCarrito");
-  tablaCarrito.innerHTML = "";
-  carrito.forEach((producto) => {
-    tablaCarrito.innerHTML =
-      tablaCarrito.innerHTML +
-      `
-  <tbody>
-    <tr>
-    <th scope="row">   
-    <img
-    src="../img/fotosproductos/${producto.imagen}"
-    class=""
-    alt="${producto.nombre}"
-    width="100"
-    height="100"
-  />
-  </th>
-    </tr>
-    <tr>
-    <th scope="row">${producto.nombre}</th>
-    </tr>
-    <tr>
-    <th scope="row">${producto.precio}</th>
-    </tr>
-  </tbody>
-    `;
-  });
-  tablaCarrito.innerHTML =
-    tablaCarrito.innerHTML +
-    `<thead>
-  <tr>
-    <th scope="col">Carrito de Compras</th>
-  </tr>
-</thead>`;
+localStorage.setItem("stock", JSON.stringify(stock));
+localStorage.setItem("carrito", JSON.stringify(carrito));
+
+function traerItems() {
+  stock = JSON.parse(localStorage.getItem("stock")) || [];
+  carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+}
+
+function cargaDelDOM() {
+  document.addEventListener("DOMContentLoaded", traerItems);
 }
 
 dibujarProductos();
 clickAgregarCarrito();
 abrirCarrito();
+/* traerItems(); */
