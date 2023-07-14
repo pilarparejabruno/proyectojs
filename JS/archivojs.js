@@ -237,11 +237,10 @@ function mostrarCarrito() {
       </tr>
     </tbody>
       `;
-    modificarCantidad(producto);
-  });
-  tablaCarrito.innerHTML =
-    tablaCarrito.innerHTML +
-    `
+
+    tablaCarrito.innerHTML =
+      tablaCarrito.innerHTML +
+      `
    <thead class="thead">
    <tr class="tr">
      <th scope="col" class= "title">Carrito de Compras</th>
@@ -254,6 +253,25 @@ function mostrarCarrito() {
       </tr>
  </tbody>
    `;
+    carrito.forEach((producto) => {
+      const botonSumar = document.getElementById(
+        `btn-incrementar-${producto.id}`
+      );
+      botonSumar.addEventListener("click", () => {
+        console.log(producto.id);
+        producto.cantidad++;
+        console.log(producto);
+      });
+      const botonRestar = document.getElementById(
+        `btn-decrementar-${producto.id}`
+      );
+      botonRestar.addEventListener("click", () => {
+        console.log(producto.id);
+        producto.cantidad--;
+        console.log(producto);
+      });
+    });
+  });
 }
 function clickAgregarCarrito() {
   stock.forEach((producto) => {
@@ -261,32 +279,8 @@ function clickAgregarCarrito() {
       `btnAgregarCarrito-${producto.id}`
     );
     btnAgregarCarrito.addEventListener("click", () => {
-      let productoEnCarrito = carrito.find((p) => p.nombre === producto.nombre);
-      if (productoEnCarrito) {
-        productoEnCarrito.cantidad++;
-      } else {
-        carrito.push({
-          imagen: producto.imagen,
-          nombre: producto.nombre,
-          precio: producto.precio,
-          cantidad: 1,
-        });
-      }
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      total = carrito.reduce(
-        (acc, producto) => acc + producto.precio * producto.cantidad,
-        0
-      );
-    });
-  });
-}
-/* function clickAgregarCarrito() {
-  stock.forEach((producto) => {
-    let btnAgregarCarrito = document.getElementById(
-      `btnAgregarCarrito-${producto.id}`
-    );
-    btnAgregarCarrito.addEventListener("click", () => {
       carrito.push({
+        id: producto.id,
         imagen: producto.imagen,
         nombre: producto.nombre,
         precio: producto.precio,
@@ -297,7 +291,7 @@ function clickAgregarCarrito() {
     });
     console.log(carrito);
   });
-}  */
+}
 
 function abrirCarrito() {
   const verCarrito = document.querySelector("#verCarrito");
