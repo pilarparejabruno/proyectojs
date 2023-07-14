@@ -208,67 +208,42 @@ function mostrarCarrito() {
   let tablaCarrito = document.getElementById("tableCarrito");
   tablaCarrito.innerHTML = "";
   carrito.forEach((producto) => {
-    tablaCarrito.innerHTML =
-      tablaCarrito.innerHTML +
-      `
-     
-    <tbody class="tbody" >
-      <tr>
-      <th scope="row">   
-      <img
-      src="../img/fotosproductos/${producto.imagen}"
-      class=""
-      alt="${producto.nombre}"
-      width="100"
-      height="100"
-    />
-     </th>
-      </tr>
-      <tr class="tr">
-      <th scope="row" class="paragraph">${producto.nombre} $ ${producto.precio} </th>
-      </tr>
-      <tr class="tr">
-      <th scope="row" class="paragraph">Cantidad: ${producto.cantidad} </th>
-      </tr>
-      <tr class="tr">
-      <th scope="row" class="paragraph"><button type="button" class="btn btn-outline-dark" id="btn-incrementar-${producto.id}">+</button>
-     <button type="button" class="btn btn-outline-dark" id="btn-decrementar-${producto.id}">-</button></th>
-      </tr>
-    </tbody>
-      `;
+    const card = document.createElement("div");
+    card.style.backgroundColor = "white";
+    card.innerHTML = `
+       <img src="../img/fotosproductos/${producto.imagen}" class="" alt="${
+      producto.nombre
+    }"  width="100"  height="100"  />
+       <p scope="row" class="paragraph">${producto.nombre} $ ${
+      producto.precio * producto.cantidad
+    } </p>
+       <p scope="row" class="paragraph">Cantidad: ${producto.cantidad} </p>
+       <button type="button" class="btn btn-outline-dark" id="btn-incrementar-${
+         producto.id
+       }">+</button>
+       <button type="button" class="btn btn-outline-dark" id="btn-decrementar-${
+         producto.id
+       }">-</button></th>
+        `;
 
-    tablaCarrito.innerHTML =
-      tablaCarrito.innerHTML +
-      `
-   <thead class="thead">
-   <tr class="tr">
-     <th scope="col" class= "title">Carrito de Compras</th>
-   </tr>
- </thead>
- <tbody class="tbody" >
- </tr>
-      <tr class="tr">
-      <th scope="row" class="paragraph-total">TOTAL: $ ${total}</th>
-      </tr>
- </tbody>
-   `;
-    carrito.forEach((producto) => {
-      const botonSumar = document.getElementById(
-        `btn-incrementar-${producto.id}`
-      );
-      botonSumar.addEventListener("click", () => {
-        console.log(producto.id);
-        producto.cantidad++;
-        console.log(producto);
-      });
-      const botonRestar = document.getElementById(
-        `btn-decrementar-${producto.id}`
-      );
-      botonRestar.addEventListener("click", () => {
-        console.log(producto.id);
-        producto.cantidad--;
-        console.log(producto);
-      });
+    tablaCarrito.appendChild(card);
+    const botonSumar = document.getElementById(
+      `btn-incrementar-${producto.id}`
+    );
+    botonSumar.addEventListener("click", () => {
+      console.log(producto.id);
+      producto.cantidad++;
+      console.log(producto);
+      mostrarCarrito();
+    });
+    const botonRestar = document.getElementById(
+      `btn-decrementar-${producto.id}`
+    );
+    botonRestar.addEventListener("click", () => {
+      console.log(producto.id);
+      producto.cantidad--;
+      console.log(producto);
+      mostrarCarrito();
     });
   });
 }
@@ -280,13 +255,12 @@ function clickAgregarCarrito() {
     );
     btnAgregarCarrito.addEventListener("click", () => {
       carrito.push({
-        id: producto.id,
         imagen: producto.imagen,
         nombre: producto.nombre,
         precio: producto.precio,
+        id: producto.id,
         cantidad: 1,
       });
-      localStorage.setItem("carrito", JSON.stringify(carrito));
       total = carrito.reduce(
         (acc, producto) => acc + producto.precio * producto.cantidad,
         0
@@ -302,6 +276,16 @@ function abrirCarrito() {
   verCarrito.addEventListener("click", mostrarCarrito);
 }
 
+function traerItems() {
+  carritoDelStorage = JSON.parse(localStorage.getItem("carrito")) || [];
+  stockDelStorage = JSON.parse(localStorage.getItem("stock")) || [];
+}
+
+function cargadelDOM() {
+  document.addEventListener("DOMContentLoaded", traerItems);
+}
+
+cargadelDOM();
 dibujarProductos();
 clickAgregarCarrito();
 abrirCarrito();
