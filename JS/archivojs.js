@@ -1,8 +1,3 @@
-/* const listaProductosCuidadoFacial = [];
-const listaProductosCuidadoCapilar = [];
-const listaProductosCuidadoLabial = [];
-const listaProductosAccesorios = []; */
-
 const stock = [];
 const carrito = [];
 let total = 0;
@@ -165,6 +160,8 @@ stock.push(
   )
 );
 
+// Dibujo de stock de productos
+
 listaItems = document.getElementById("listaItems");
 
 function dibujarProductos() {
@@ -204,6 +201,8 @@ function dibujarProductos() {
   });
   listaItems.appendChild(row);
 }
+
+// Dibujo del carrito
 
 function mostrarCarrito() {
   let tablaCarrito = document.getElementById("tableCarrito");
@@ -273,6 +272,7 @@ function mostrarCarrito() {
     });
   });
 }
+
 function clickAgregarCarrito() {
   stock.forEach((producto) => {
     let btnAgregarCarrito = document.getElementById(
@@ -287,8 +287,12 @@ function clickAgregarCarrito() {
         cantidad: 1,
       });
       localStorage.setItem("carrito", JSON.stringify(carrito));
-      total = carrito.reduce((acc, producto) => acc + producto.precio, 0);
+      total = carrito.reduce(
+        (acc, producto) => acc + producto.precio * producto.cantidad,
+        0
+      );
     });
+    carritoDelStorage = JSON.parse(localStorage.getItem("carrito")) || [];
     console.log(carrito);
   });
 }
@@ -298,13 +302,6 @@ function abrirCarrito() {
   verCarrito.addEventListener("click", mostrarCarrito);
 }
 
-function cargaDelDOM() {
-  document.addEventListener("DOMContentLoaded", () => {
-    carritoDelStorage = JSON.parse(localStorage.getItem("carrito")) || [];
-  });
-}
-
-cargaDelDOM();
 dibujarProductos();
 clickAgregarCarrito();
 abrirCarrito();
