@@ -225,18 +225,10 @@ function mostrarCarrito() {
        <button type="button" class="btn btn-outline-dark" id="btn-decrementar-${
          producto.id
        }">-</button>
-       <button type="button" class="btn btn-danger id="btn-eliminar">Eliminar</button>
         `;
 
     tablaCarrito.appendChild(card);
     localStorage.setItem("carrito", JSON.stringify(carrito));
-
-    const indice = carrito.findIndex((p) => p.id === producto.id);
-
-    const botonEliminar = document.getElementById(`btn-eliminar`);
-    botonEliminar.onclick = () => {
-      carrito.splice(indice, 1);
-    };
 
     const botonSumar = document.getElementById(
       `btn-incrementar-${producto.id}`
